@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { Download, X, ListCollapse } from "lucide-react";
 import { Button, Input, Select, Badge, cn } from "../components/ui";
 import { InPersonReceiptModal } from "../components/InPersonReceiptModal";
+import { InPersonReceiptProcessModal } from "../components/InPersonReceiptProcessModal";
 
 const mockCases = [
   { id: "26수용0001", round: "2026-1", date: "2026.01.05", project: "방배동 도로정비사업", status: "완료" },
@@ -25,6 +26,7 @@ const mockInquiries = [
   { id: 4, type: "소유자", name: "이몽룡", address: "서울시 마포구", detail: "잠실동 100", zip: "06003", trackingNo: "1111-2222-3336", s1Date: "26.01.01", s1Res: "수취거절", s2Date: "26.02.01", s2Res: "이사불명", s3Date: "26.03.01", s3Res: "진행중", s4Date: "26.04.01", s4Res: "방문수령 완료", activePhase: 4 },
 ];
 
+
 export function DeliveryInquiry() {
   const [selectedCase, setSelectedCase] = useState<any>(null);
   const [showInPersonModal, setShowInPersonModal] = useState(false);
@@ -33,12 +35,27 @@ export function DeliveryInquiry() {
   const navigate = useNavigate();
   const [showCertificateModal, setShowCertificateModal] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState<any>(null);
+  const [showInPersonProcessModal, setShowInPersonProcessModal] = useState(false);
+  const [inPersonProcessCaseData, setInPersonProcessCaseData] = useState(null);
+  
+
+  
 
   // [추가] 모달을 여는 함수
   const openCertificateModal = (row: any) => {
     setSelectedRowData(row);
     setShowCertificateModal(true);
   };
+  const handleInPersonProcessClick = (row: any) => {
+  setInPersonProcessCaseData({
+    ...row,
+    id: selectedCase.id,
+    project: selectedCase.project,
+    status: row.s4Res === "방문수령 완료" ? "방문수령완료" : "송달중",
+  });
+  setShowInPersonProcessModal(true);
+};
+  
   
   const realTimeLink = "https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=2027278003144&displayHeader=N#";
   const logLink = "https://service.epost.go.kr/trace.RetrieveDomRigiTraceList.comm?sid1=2027278002940&displayHeader=N#";
@@ -208,7 +225,7 @@ export function DeliveryInquiry() {
                                size="sm" 
                                variant="primary" 
                                className="h-7 w-full text-[11px] font-bold text-white bg-slate-700 hover:bg-slate-800 flex items-center justify-center shadow-sm px-1 border-none"
-                               onClick={() => handleInPersonClick(row)}
+                               onClick={() => handleInPersonProcessClick(row)}
                             >
                                방문수령등록
                             </Button>
@@ -226,6 +243,11 @@ export function DeliveryInquiry() {
           onClose={() => setShowInPersonModal(false)} 
           caseData={inPersonCaseData} 
         />
+        <InPersonReceiptProcessModal
+  isOpen={showInPersonProcessModal}
+  onClose={() => setShowInPersonProcessModal(false)}
+  caseData={inPersonProcessCaseData}
+/>
         {/* [새로 추가] 송달확인서 모달 UI */}
         {showCertificateModal && selectedRowData && (
           <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-[9999] p-4">

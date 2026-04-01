@@ -160,12 +160,12 @@ export function InPersonReceiptModal({ isOpen, onClose, caseData }: InPersonRece
              </div>
              
              <div className="flex w-full gap-2">
-                <Button variant="outline" className="flex-1 border-blue-600 text-blue-700 hover:bg-blue-50 flex items-center justify-center gap-1.5 font-bold h-11 text-[13px] px-2">
+                <Button variant="outline" className="flex-1 border-blue-600 text-blue-700 hover:bg-blue-50 flex items-center justify-center gap-1.5 font-bold h-11 text-[11px] px-2">
                    <Download className="w-3.5 h-3.5" /> PDF 저장
                 </Button>
-                <Button variant="primary" className="flex-1 bg-[#1e3a8a] text-white hover:bg-blue-800 flex items-center justify-center gap-1.5 font-bold h-11 text-[13px] px-2 shadow-sm" onClick={onClose}>
-                   <UserCheck className="w-3.5 h-3.5" /> 방문수령 완료
-                </Button>
+                <Button variant="primary" className="bg-[#1e3a8a] text-white hover:bg-blue-800 flex items-center justify-center gap-1.5 font-bold text-[11px] whitespace-nowrap">
+   <UserCheck className="w-3.5 h-3.5" /> 방문수령 완료
+      </Button>
              </div>
           </div>
         </div>

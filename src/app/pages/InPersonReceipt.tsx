@@ -110,27 +110,20 @@ export function InPersonReceipt() {
                   <td className="px-6 py-4 text-gray-600 truncate max-w-[200px]">{row.address}</td>
                   <td className="px-6 py-4 text-center">{getStatusBadge(row.status)}</td>
                   <td className="px-6 py-4 text-center">
-  {/* 1. 수령 버튼이 나오는 조건 (송달중 또는 미접수) */}
-  {(row.status === "송달중" || row.status === "미접수") ? (
-    <Button
-      size="sm"
-      onClick={() => handleReceipt(row)}
-      className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 rounded-full shadow-sm flex items-center gap-1.5 mx-auto"
-    >
-      <UserCheck className="w-3.5 h-3.5" /> 수령
-    </Button>
-  ) : (
-    /* 2. 그 외 (공시송달접수 포함) 모든 경우는 완료됨 표시 */
-    <Button 
-      size="sm" 
-      variant="outline" 
-      className="px-4 rounded-full border-gray-300 text-gray-500 mx-auto" 
-      disabled
-    >
-      완료됨
-    </Button>
-  )}
-</td>
+                    {row.status === "송달중" ? (
+                      <Button 
+                        size="sm" 
+                        onClick={() => handleReceipt(row)}
+                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 rounded-full shadow-sm flex items-center gap-1.5 mx-auto"
+                      >
+                        <UserCheck className="w-3.5 h-3.5" /> 수령
+                      </Button>
+                    ) : (
+                      <Button size="sm" variant="outline" className="px-4 rounded-full border-gray-300 text-gray-500" disabled>
+                        완료됨
+                      </Button>
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -214,8 +207,8 @@ export function InPersonReceipt() {
                <Button variant="outline" className="border-blue-600 text-blue-700 hover:bg-blue-50 flex items-center justify-center gap-1.5 font-bold h-10 px-4">
                   <Download className="w-3.5 h-3.5" /> PDF 저장
                </Button>
-               <Button variant="primary" className="bg-[#1e3a8a] text-white hover:bg-blue-800 flex items-center justify-center gap-1.5 font-bold h-10 px-4 shadow-sm" onClick={() => setShowModal(false)}>
-                  <UserCheck className="w-3.5 h-3.5" /> 방문수령 완료
+               <Button variant="primary" className="bg-[#1e3a8a] text-white hover:bg-blue-800 flex items-center justify-center gap-1.5 font-bold text-[12px] whitespace-nowrap">
+                <UserCheck className="w-3.5 h-3.5" />방문수령 완료
                </Button>
               <Button variant="outline" onClick={() => setShowModal(false)} className="bg-white text-gray-700 font-bold w-24 h-10 shadow-sm border-gray-300 ml-2">닫기</Button>
             </div>
