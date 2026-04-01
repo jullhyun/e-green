@@ -188,13 +188,19 @@ export function DeliveryInquiry() {
                          <ResultCell date={row.s4Date} res={row.s4Res} phase={4} />
 
                          <td className="px-2 py-2 border-r border-b border-gray-200 align-middle">
-                            <Button 
-                               size="sm" 
-                               variant="outline" 
-                               className="h-7 w-full text-[11px] font-bold text-gray-700 bg-white border-gray-300 hover:bg-gray-100 flex items-center justify-center shadow-sm px-1"
-                               onClick={() => openCertificateModal(row)}
+                           <Button 
+                            size="sm" 
+                            variant="outline" 
+                            className={cn(
+                            "h-7 w-full text-[11px] font-bold shadow-sm px-1",
+                             !(row.s1Res?.includes("수령") || row.s2Res?.includes("수령"))
+                             ? "bg-gray-100 text-gray-400 border-gray-200" 
+                             : "text-gray-700 bg-white border-gray-300 hover:bg-gray-100"
+                             )}
+                            disabled={!(row.s1Res?.includes("수령") || row.s2Res?.includes("수령"))}
+                            onClick={() => openCertificateModal(row)}
                             >
-                               상세보기
+                            송달확인서
                             </Button>
                          </td>
                          <td className="px-2 py-2 border-b border-gray-200 align-middle">

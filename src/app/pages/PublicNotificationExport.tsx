@@ -262,9 +262,7 @@ function CompleteModal({ isOpen, onClose, data, onConfirm }: any) {
 
 const mockData = [
   { id: 1, caseNo: "26수용0001", project: "방배동 도로정비사업", manager: "박00", target: "홍길동",type: "소유자",address: "서울시 서초구",detail: "방배동 52-10", status: "미접수" },
-  { id: 2, caseNo: "", project: "", manager: "", target: "", status: "" },
-  { id: 3, caseNo: "", project: "", manager: "", target: "", status: "" },
-  { id: 4, caseNo: "", project: "", manager: "", target: "", status: "" },
+  
 ];
 
 const mockDetails = {
@@ -282,12 +280,12 @@ export function PublicNotificationExport() {
   const navigate = useNavigate();
 
   const onReceiptConfirm = (caseId: number) => {
-    setCases(prev => prev.map(c => c.id === caseId ? { ...c, status: "접수" } : c));
+    setCases(prev => prev.map(c => c.id === caseId ? { ...c, status: "공시송달접수" } : c));
     setModalConfig({type: null, caseData: null});
   };
 
   const onCompleteConfirm = (caseId: number) => {
-    setCases(prev => prev.map(c => c.id === caseId ? { ...c, status: "완료" } : c));
+    setCases(prev => prev.map(c => c.id === caseId ? { ...c, status: "공시송달완료" } : c));
     setModalConfig({type: null, caseData: null});
   };
 
@@ -432,8 +430,8 @@ export function PublicNotificationExport() {
                         <td className={cn(
                            "py-3 font-bold",
                            row.status === '미접수' ? "bg-[#ffe4e6] text-red-600" :
-                           row.status === '접수' ? "bg-blue-50 text-blue-600" :
-                           row.status === '완료' ? "bg-gray-100 text-gray-600" : "bg-[#ffe4e6]"
+                           row.status === '공시송달접수' ? "bg-blue-50 text-blue-600" :
+                           row.status === '공시송달완료' ? "bg-gray-100 text-gray-600" : "bg-[#ffe4e6]"
                         )}>
                            {row.status}
                         </td>

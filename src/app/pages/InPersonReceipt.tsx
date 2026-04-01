@@ -110,20 +110,27 @@ export function InPersonReceipt() {
                   <td className="px-6 py-4 text-gray-600 truncate max-w-[200px]">{row.address}</td>
                   <td className="px-6 py-4 text-center">{getStatusBadge(row.status)}</td>
                   <td className="px-6 py-4 text-center">
-                    {row.status === "송달중" ? (
-                      <Button 
-                        size="sm" 
-                        onClick={() => handleReceipt(row)}
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 rounded-full shadow-sm flex items-center gap-1.5 mx-auto"
-                      >
-                        <UserCheck className="w-3.5 h-3.5" /> 수령
-                      </Button>
-                    ) : (
-                      <Button size="sm" variant="outline" className="px-4 rounded-full border-gray-300 text-gray-500" disabled>
-                        완료됨
-                      </Button>
-                    )}
-                  </td>
+  {/* 1. 수령 버튼이 나오는 조건 (송달중 또는 미접수) */}
+  {(row.status === "송달중" || row.status === "미접수") ? (
+    <Button
+      size="sm"
+      onClick={() => handleReceipt(row)}
+      className="bg-blue-600 hover:bg-blue-700 text-white font-bold px-4 rounded-full shadow-sm flex items-center gap-1.5 mx-auto"
+    >
+      <UserCheck className="w-3.5 h-3.5" /> 수령
+    </Button>
+  ) : (
+    /* 2. 그 외 (공시송달접수 포함) 모든 경우는 완료됨 표시 */
+    <Button 
+      size="sm" 
+      variant="outline" 
+      className="px-4 rounded-full border-gray-300 text-gray-500 mx-auto" 
+      disabled
+    >
+      완료됨
+    </Button>
+  )}
+</td>
                 </tr>
               ))}
             </tbody>

@@ -7,7 +7,7 @@ const mockData = [
   { id: "26수용0001", round: "2026-1차", date: "2026.01.02", project: "방배동 도로정비사업", status: "미진행" },
   { id: "26수용0002", round: "2026-1차", date: "2026.01.02", project: "방배동 도로정비사업", status: "진행중" },
   { id: "26수용0003", round: "2026-2차", date: "2026.02.15", project: "강남역 사거리 확장", status: "송달완료" },
-  { id: "26수용0004", round: "2026-2차", date: "2026.02.15", project: "강남역 사거리 확장", status: "송달완료" },
+  { id: "26수용0004", round: "2026-2차", date: "2026.02.15", project: "강남역 사거리 확장", status: "재송달실패" },
 ];
 
 export function PublicNotification() {
@@ -16,8 +16,10 @@ export function PublicNotification() {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case "미진행": return <Badge variant="danger" className="font-bold bg-red-50 text-red-600 border-red-200">미진행</Badge>;
-      case "진행중": return <Badge variant="warning" className="font-bold bg-yellow-50 text-yellow-600 border-yellow-200">진행중</Badge>;
+      case "미진행": return <Badge variant="danger" className="font-bold bg-red-50 text-red-600 border-red-200">1차송달미진행</Badge>;
+      case "1차송달실패": return <Badge variant="danger" className="font-bold bg-red-50 text-red-600 border-red-200">1차송달실패</Badge>;
+      case "재송달실패": return <Badge variant="danger" className="font-bold bg-red-50 text-red-600 border-red-200">재송달실패</Badge>;
+      case "진행중": return <Badge variant="warning" className="font-bold bg-yellow-50 text-yellow-600 border-yellow-200">송달진행중</Badge>;
       case "송달완료": return <Badge variant="success" className="font-bold bg-green-50 text-green-600 border-green-200">송달완료</Badge>;
       default: return <Badge variant="default">{status}</Badge>;
     }
