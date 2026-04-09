@@ -129,13 +129,14 @@ export function PublicNotification() {
                 <td className="px-6 py-4 text-center text-gray-500">{row.date}</td>
                 <td className="px-6 py-4 text-gray-900 font-medium">{row.project}</td>
                 <td className="px-6 py-4 text-center text-black font-medium">{row.id}</td>
-                <td className="px-6 py-4 text-center">
-                  <div className="flex items-center gap-2 text-slate-700 font-semibold min-w-max">
-  <div className="h-6 w-px bg-slate-300" />
-  <span>검색조건</span>
-
-</div>
-                </td>
+                <td className="px-4 py-3 text-center">
+  <span
+  onClick={() => navigate("/public-notification/export")}
+  className="inline-flex items-center rounded-full border border-gray-300 bg-white px-3 py-1 text-xs font-bold text-slate-700 shadow-sm cursor-pointer hover:bg-gray-100"
+>
+  + 접수 등록
+</span>
+</td>
                 <td className="px-6 py-4 text-center">
                   {getStatusBadge(row.status)}
                 </td>
