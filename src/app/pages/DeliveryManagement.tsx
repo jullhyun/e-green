@@ -44,8 +44,8 @@ export function DeliveryManagement() {
       {/* Search Area */}
       <div className="bg-[#f8fafc] p-6 rounded-lg border border-slate-200 shadow-sm flex items-center gap-4">
         <div className="flex items-center gap-2 text-slate-700 font-semibold min-w-max">
-          <ListFilter className="w-5 h-5" />
-          <span>검색필터</span>
+          <Search className="w-5 h-5" />
+          <span>검색조건</span>
         </div>
         
         <div className="h-8 w-px bg-slate-300 mx-2" />

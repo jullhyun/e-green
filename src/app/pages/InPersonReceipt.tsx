@@ -12,6 +12,8 @@ export function InPersonReceipt() {
   const [showModal, setShowModal] = useState(false);
   const [selectedCase, setSelectedCase] = useState<any>(null);
   const [filterType, setFilterType] = useState("전체");
+  const [searchType, setSearchType] = useState("이름");
+  const [searchKeyword, setSearchKeyword] = useState("");
 
   const getStatusBadge = (status: string) => {
     switch (status) {
@@ -35,7 +37,7 @@ export function InPersonReceipt() {
       </div>
 
       {/* Search Area */}
-      <div className="bg-[#f8fafc] p-6 rounded-lg border border-slate-200 shadow-sm flex flex-col gap-4">
+      <div className="bg-[#f8fafc] p-6 rounded-lg border border-slate-200 shadow-sm flex items-center gap-4 flex-wrap">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2 text-slate-700 font-semibold min-w-max">
             <Search className="w-5 h-5" />
@@ -62,7 +64,7 @@ export function InPersonReceipt() {
           </div>
         </div>
 
-        <div className="flex gap-4 items-center pl-32">
+        <div className="flex items-center gap-4">
           <Select 
             className="w-32 bg-white"
             options={[{label: "이름", value: "name"}, {label: "주소", value: "address"}]}

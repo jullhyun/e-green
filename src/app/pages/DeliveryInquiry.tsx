@@ -1,7 +1,8 @@
 import { useState, Fragment } from "react";
 import { useNavigate } from "react-router";
-import { Download, X, ListCollapse } from "lucide-react";
+import { Download,Search, X, ListCollapse } from "lucide-react";
 import { Button, Input, Select, Badge, cn } from "../components/ui";
+
 import { InPersonReceiptModal } from "../components/InPersonReceiptModal";
 import { InPersonReceiptProcessModal } from "../components/InPersonReceiptProcessModal";
 
@@ -89,6 +90,7 @@ export function DeliveryInquiry() {
         <div className="flex flex-col gap-6">
            {/* Top Summary Form */}
            <div className="border-[1.5px] border-[#1e3a8a] rounded-md overflow-hidden text-[13px] bg-white w-full shadow-sm grid grid-cols-[100px_1fr_100px_1fr_100px_1fr_100px_1fr]">
+            
               {/* Row 1 */}
               <div className="bg-[#f4f7fb] text-gray-700 font-bold flex items-center justify-center py-2.5 border-b border-r border-gray-200">심의차수</div>
               <div className="py-2.5 px-4 flex items-center justify-center text-gray-700 border-b border-r border-gray-200">{selectedCase.round}</div>
@@ -320,14 +322,19 @@ export function DeliveryInquiry() {
 
       {/* Main Search */}
       <div className="bg-[#f8fafc] p-5 rounded-lg border border-slate-200 shadow-sm flex flex-wrap lg:flex-nowrap items-center justify-between gap-4">
-         <div className="flex items-center gap-4 flex-wrap text-sm whitespace-nowrap">
-            <span className="font-bold text-gray-700 bg-white px-4 py-2 border border-gray-300 rounded shadow-sm">검색</span>
-            
-            {searchMode === "case" ? (
-               <Select options={[{label: "사업명", value: "project"}, {label: "심의차수", value: "round"}]} className="w-32 bg-white h-9" />
-            ) : (
-               <Select options={[{label: "전체", value: "all"}, {label: "소유자", value: "owner"}, {label: "관계인", value: "relation"}, {label: "대리인", value: "agent"}]} className="w-32 bg-white h-9" />
-            )}
+        <div className="flex items-center gap-4 flex-wrap text-sm whitespace-nowrap">
+  <div className="flex items-center gap-2 text-slate-700 font-semibold min-w-max whitespace-nowrap">
+    <Search className="w-5 h-5 text-gray-500" />
+    <span>검색조건</span>
+  </div>
+
+  <div className="h-6 w-px bg-slate-300" />
+
+        {searchMode === "case" ? (
+           <Select options={[{label: "사업명", value: "project"}, {label: "심의차수", value: "round"}]} className="w-32 bg-white h-9" />
+         ) : (
+          <Select options={[{label: "전체", value: "all"}, {label: "소유자", value: "owner"}, {label: "관계인", value: "relation"}]} className="w-32 bg-white h-9" />
+         )}
             
             <div className="flex items-center gap-4 bg-white px-3 py-2 border border-gray-300 rounded shadow-sm">
                <label className="flex items-center gap-1.5 cursor-pointer"><input type="radio" name="scope" defaultChecked className="w-3.5 h-3.5 text-blue-600 focus:ring-blue-500" /><span className="font-medium text-gray-700">전체</span></label>
