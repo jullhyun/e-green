@@ -14,10 +14,10 @@ const mockCases = [
 ];
 
 const mockOwnerCases = [
-  { id: "26수용0001", round: "2026-1", date: "2026.01.05", project: "방배동 도로정비사업", owner: "김둘리 외 3인", relation: "홍길동 외 1인", agent: "이몽룡" },
-  { id: "26수용0002", round: "2026-2", date: "2026.02.10", project: "강남역 사거리 확장", owner: "박문수 외 2인", relation: "김선달", agent: "-" },
-  { id: "26수용0003", round: "2026-3", date: "2026.03.15", project: "송파구 주거환경개선", owner: "이순신", relation: "-", agent: "성춘향 외 1인" },
-  { id: "26수용0004", round: "2026-4", date: "2026.04.20", project: "여의도 복합개발사업", owner: "강감찬 외 5인", relation: "유관순 외 2인", agent: "-" },
+  { id: "26수용0001", round: "2026-1", date: "2026.01.05", project: "방배동 도로정비사업", owner: "김둘리 외 3인", relation: "홍길동 외 1인", agent: "이몽룡",searcher: "" },
+  { id: "26수용0002", round: "2026-2", date: "2026.02.10", project: "강남역 사거리 확장", owner: "박문수 외 2인", relation: "김선달", agent: "-",searcher: "" },
+  { id: "26수용0003", round: "2026-3", date: "2026.03.15", project: "송파구 주거환경개선", owner: "이순신", relation: "-", agent: "성춘향 외 1인",searcher: "" },
+  { id: "26수용0004", round: "2026-4", date: "2026.04.20", project: "여의도 복합개발사업", owner: "강감찬 외 5인", relation: "유관순 외 2인", agent: "-",searcher: "" },
 ];
 
 const mockInquiries = [
@@ -32,7 +32,7 @@ export function DeliveryInquiry() {
   const [selectedCase, setSelectedCase] = useState<any>(null);
   const [showInPersonModal, setShowInPersonModal] = useState(false);
   const [inPersonCaseData, setInPersonCaseData] = useState<any>(null);
-  const [searchMode, setSearchMode] = useState<"case" | "owner">("case");
+  const [searchMode, setSearchMode] = useState<"case" | "owner">("owner");
   const navigate = useNavigate();
   const [showCertificateModal, setShowCertificateModal] = useState(false);
   const [selectedRowData, setSelectedRowData] = useState<any>(null);
@@ -355,6 +355,15 @@ export function DeliveryInquiry() {
 
       {/* Tabs */}
       <div className="flex border-b border-gray-300">
+          <button
+          className={cn(
+            "px-6 py-3 font-bold text-sm border-b-2 transition-colors",
+            searchMode === "owner" ? "border-[#1e3a8a] text-[#1e3a8a]" : "border-transparent text-gray-500 hover:text-gray-800"
+          )}
+          onClick={() => setSearchMode("owner")}
+        >
+          소유자기반검색
+        </button>
         <button
           className={cn(
             "px-6 py-3 font-bold text-sm border-b-2 transition-colors",
@@ -364,15 +373,7 @@ export function DeliveryInquiry() {
         >
           사건기반검색
         </button>
-        <button
-          className={cn(
-            "px-6 py-3 font-bold text-sm border-b-2 transition-colors",
-            searchMode === "owner" ? "border-[#1e3a8a] text-[#1e3a8a]" : "border-transparent text-gray-500 hover:text-gray-800"
-          )}
-          onClick={() => setSearchMode("owner")}
-        >
-          소유자기반검색
-        </button>
+      
       </div>
 
       {/* Main List */}
@@ -396,6 +397,7 @@ export function DeliveryInquiry() {
                     <th className="px-4 py-3.5 font-bold border-r border-gray-300 w-32">소유자</th>
                     <th className="px-4 py-3.5 font-bold border-r border-gray-300 w-32">관계인</th>
                     <th className="px-4 py-3.5 font-bold border-r border-gray-300 w-32">대리인</th>
+                    <th className="px-6 py-4 font-bold text-center">검색자</th>
                   </>
                 )}
                 <th className="px-4 py-3.5 font-bold w-32">상세보기</th>
@@ -409,22 +411,24 @@ export function DeliveryInquiry() {
                    <td className="px-4 py-3 border-r border-gray-200 text-gray-700">{c.date}</td>
                    <td className="px-4 py-3 border-r border-gray-200 font-bold text-gray-900">{c.project}</td>
                    <td className="px-4 py-3 border-r border-gray-200 font-medium text-black">{c.id}</td>
+                   
                    {searchMode === "owner" && (
-                     <>
-                       <td className="px-4 py-3 border-r border-gray-200 text-gray-800">{c.owner}</td>
-                       <td className="px-4 py-3 border-r border-gray-200 text-gray-800">{c.relation}</td>
-                       <td className="px-4 py-3 border-r border-gray-200 text-gray-800">{c.agent}</td>
-                     </>
-                   )}
-                   <td className="px-4 py-2.5">
-                      <Button 
-                         onClick={() => setSelectedCase(c)} 
-                         variant="outline" 
-                         className="h-8 w-full bg-slate-700 hover:bg-slate-800 text-white font-bold text-xs border-none shadow-sm flex items-center justify-center gap-1"
-                      >
-                         <ListCollapse className="w-3.5 h-3.5" /> 상세보기
+                    <>
+                    <td className="px-4 py-3 border border-gray-200 text-gray-800">{c.owner}</td>
+                    <td className="px-4 py-3 border border-gray-200 text-gray-800">{c.relation}</td>
+                    <td className="px-4 py-3 border-r border-b border-gray-200 text-center text-gray-800">{c.agent}</td>
+                    <td className="px-4 py-3 border-r border-b border-gray-200 text-center text-gray-800">{c.searcher}</td>
+                    </>
+                    )}
+                    <td className="px-4 py-2.5 border-b border-gray-200">
+                    <Button
+                      onClick={() => setSelectedCase(c)}
+                      variant="outline"
+                      className="h-8 w-full bg-slate-700 hover:bg-slate-800 text-white font-bold text-xs border-none shadow-sm flex items-center justify-center gap-1"
+                    >
+                      <ListCollapse className="w-3.5 h-3.5" /> 상세보기
                       </Button>
-                   </td>
+                    </td>
                 </tr>
               ))}
             </tbody>
