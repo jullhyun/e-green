@@ -10,7 +10,8 @@ const mockAgendas = [
   { id: 12, round: "2025년 12차", date: "2025-12-19", project: "한남2재정비촉진구역 주택재개발정비사업(2차) 외 8" },
   { id: 11, round: "2025년 11차", date: "2025-11-21", project: "미성동(신림동 산121-3일대) 도로개선사업 잔여지 매수청구 외 2" },
 ];
-
+const clickableCell =
+  "px-4 py-3 border-r border-gray-200 cursor-pointer hover:bg-blue-50 transition-colors";
 const mockData: Record<number, any[]> = {
   15: [
     { id: "26수용0001", round: "2026년 3차", receiveDate: "2026.03.02", project: "제기제6구역 주택재개발정비사업", executor: "방배동재개발조합", date: "2026.03.12", manager: "박00", owner: "홍길동 외 3인", relation: "김둘리 외 3인" },
@@ -32,6 +33,9 @@ export function DeliveryManagement() {
   const [searchType, setSearchType] = useState("all");
   const [caseFilter, setCaseFilter] = useState("my");
   const [selectedAgendaId, setSelectedAgendaId] = useState<number | null>(15);
+  const goToWorkPage = (id: string) => {
+  navigate(`/delivery/${id}/address`);
+};
 
   const currentCases = selectedAgendaId && mockData[selectedAgendaId] ? mockData[selectedAgendaId] : [];
 
@@ -182,31 +186,104 @@ export function DeliveryManagement() {
             </thead>
             <tbody>
               {currentCases.map((row, index) => (
-                <tr 
-                  key={row.id} 
-                  className="bg-white border-b border-gray-200 hover:bg-blue-50/60 cursor-pointer transition-colors"
-                  onClick={() => navigate(`/delivery/${row.id}/address`)}
-                >
-                  <td className="px-4 py-3 text-center text-gray-500 border-r border-gray-200">{index + 1}</td>
-                  <td className="px-4 py-3 text-center text-gray-700 border-r border-gray-200">{row.round}</td>
-                  <td className="px-4 py-3 text-center text-gray-600 border-r border-gray-200">{row.receiveDate}</td>
-                  <td className="px-4 py-3 text-center font-medium text-black hover:underline border-r border-gray-200">{row.id}</td>
-                  <td className="px-6 py-3 text-gray-900 border-r border-gray-200">{row.project}</td>
-                  <td className="px-4 py-3 text-gray-600 border-r border-gray-200">{row.executor}</td>
-                  <td className="px-4 py-3 text-center text-gray-500 border-r border-gray-200">{row.date}</td>
-                  <td className="px-4 py-3 text-center text-gray-600 border-r border-gray-200">{row.manager}</td>
-                  <td className="px-4 py-3 text-gray-700 border-r border-gray-200">{row.owner}</td>
-                  <td className="px-4 py-3 text-gray-700">{row.relation}</td>
-                  <td className="px-4 py-3 border-r border-gray-200 text-center">
-                    <Button
-                     onClick={() => navigate(`/delivery/${row.id}/result`)}
-                     ant="outline"
-                     className="h-8 bg-slate-700 hover:bg-slate-800 text-white font-bold text-xs border-none shadow-sm px-4"
-                     >
-                    송달결과보기  </Button>
-                    </td>
-                </tr>
-              ))}
+  <tr 
+    key={row.id} 
+    className="bg-white border-b border-gray-200 hover:bg-blue-50/60 transition-colors"
+  >
+
+    {/* 연번 */}
+    <td 
+      className="px-4 py-3 text-center text-gray-500 border-r border-gray-200 cursor-pointer"
+      onClick={() => navigate(`/delivery/${row.id}/address`)}
+    >
+      {index + 1}
+    </td>
+
+    {/* 심의차수 */}
+    <td 
+      className="px-4 py-3 text-center text-gray-700 border-r border-gray-200 cursor-pointer"
+      onClick={() => navigate(`/delivery/${row.id}/address`)}
+    >
+      {row.round}
+    </td>
+
+    {/* 접수일 */}
+    <td 
+      className="px-4 py-3 text-center text-gray-600 border-r border-gray-200 cursor-pointer"
+      onClick={() => navigate(`/delivery/${row.id}/address`)}
+    >
+      {row.receiveDate}
+    </td>
+
+    {/* 사건번호 */}
+    <td 
+      className="px-4 py-3 text-center font-medium text-black hover:underline border-r border-gray-200 cursor-pointer"
+      onClick={() => navigate(`/delivery/${row.id}/address`)}
+    >
+      {row.id}
+    </td>
+
+    {/* 사업명 */}
+    <td 
+      className="px-6 py-3 text-gray-900 border-r border-gray-200 cursor-pointer"
+      onClick={() => navigate(`/delivery/${row.id}/address`)}
+    >
+      {row.project}
+    </td>
+
+    {/* 사업시행자 */}
+    <td 
+      className="px-4 py-3 text-gray-600 border-r border-gray-200 cursor-pointer"
+      onClick={() => navigate(`/delivery/${row.id}/address`)}
+    >
+      {row.executor}
+    </td>
+
+    {/* 재결일 */}
+    <td 
+      className="px-4 py-3 text-center text-gray-500 border-r border-gray-200 cursor-pointer"
+      onClick={() => navigate(`/delivery/${row.id}/address`)}
+    >
+      {row.date}
+    </td>
+
+    {/* 담당자 */}
+    <td 
+      className="px-4 py-3 text-center text-gray-600 border-r border-gray-200 cursor-pointer"
+      onClick={() => navigate(`/delivery/${row.id}/address`)}
+    >
+      {row.manager}
+    </td>
+
+    {/* 소유자 */}
+    <td 
+      className="px-4 py-3 text-gray-700 border-r border-gray-200 cursor-pointer"
+      onClick={() => navigate(`/delivery/${row.id}/address`)}
+    >
+      {row.owner}
+    </td>
+
+    {/* 관계인 */}
+    <td 
+      className="px-4 py-3 text-gray-700 border-r border-gray-200 cursor-pointer"
+      onClick={() => navigate(`/delivery/${row.id}/address`)}
+    >
+      {row.relation}
+    </td>
+
+    {/* 🔥 송달결과보기 버튼 (여기만 따로) */}
+    <td className="px-4 py-3 border-r border-gray-200 text-center">
+      <Button
+        onClick={() => navigate(`/delivery/${row.id}/result`)}
+        variant="outline"
+        className="h-8 bg-slate-700 hover:bg-slate-800 text-white font-bold text-xs border-none shadow-sm px-4"
+      >
+        송달결과보기
+      </Button>
+    </td>
+
+  </tr>
+))}
               {currentCases.length === 0 && (
                 <tr>
                   <td colSpan={10} className="px-6 py-12 text-center text-gray-500">
