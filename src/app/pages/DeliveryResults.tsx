@@ -105,6 +105,7 @@ export function DeliveryResults() {
             <table className="w-full text-[13px] text-center min-w-[1400px] whitespace-nowrap">
                <thead className="text-gray-700 bg-slate-100 border-b border-gray-300">
                   <tr>
+                     <th rowSpan={2} className="px-2 py-2 font-bold border-r border-gray-300 w-10">선택</th>
                      <th rowSpan={2} className="px-2 py-2 font-bold border-r border-gray-300 w-12">순번</th>
                      <th rowSpan={2} className="px-2 py-2 font-bold border-r border-gray-300 w-16">구분</th>
                      <th rowSpan={2} className="px-3 py-2 font-bold border-r border-gray-300 w-24">성명</th>
@@ -117,6 +118,7 @@ export function DeliveryResults() {
                      <th rowSpan={2} className="px-2 py-2 font-bold w-20">버튼</th>
                   </tr>
                   <tr className="text-[12px]">
+                     
                      <th className="px-2 py-1.5 font-bold border-r border-gray-300 bg-white w-20">일자</th>
                      <th className="px-2 py-1.5 font-bold border-r border-gray-300 bg-white w-20">결과</th>
                      <th className="px-2 py-1.5 font-bold border-r border-gray-300 bg-white w-20">수령인</th>
@@ -132,6 +134,9 @@ export function DeliveryResults() {
                <tbody>
                   {mockResults.map((row, index) => (
                      <tr key={row.id} className="bg-white border-b hover:bg-gray-50 transition-colors">
+                        <td className="px-2 py-3 text-center border-r border-gray-200">
+                        <input type="checkbox" className="w-4 h-4" />
+                         </td>
                         <td className="px-2 py-3 text-gray-500 border-r border-gray-200">{index + 1}</td>
                         <td className="px-2 py-3 border-r border-gray-200">
                            <Badge variant={row.type === "소유자" ? "danger" : row.type === "관계인" ? "warning" : "default"} className={cn(
