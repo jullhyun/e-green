@@ -171,12 +171,13 @@ export function DeliveryManagement() {
                 <th className="px-4 py-3.5 text-center font-bold border-r border-gray-200 w-24">심의차수</th>
                 <th className="px-4 py-3.5 text-center font-bold border-r border-gray-200 w-28">접수일</th>
                 <th className="px-4 py-3.5 text-center font-bold border-r border-gray-200 w-32">사건번호</th>
-                <th className="px-6 py-3.5 font-bold border-r border-gray-200">사업명</th>
-                <th className="px-4 py-3.5 font-bold border-r border-gray-200 w-40">사업시행자</th>
-                <th className="px-4 py-3.5 font-bold text-center border-r border-gray-200 w-28">재결일</th>
-                <th className="px-4 py-3.5 font-bold text-center border-r border-gray-200 w-20">담당자</th>
-                <th className="px-4 py-3.5 font-bold border-r border-gray-200 w-32">소유자</th>
-                <th className="px-4 py-3.5 font-bold w-32">관계인</th>
+                <th className="px-6 py-3.5 text-center font-bold border-r border-gray-200">사업명</th>
+                <th className="px-4 py-3.5 text-center font-bold border-r border-gray-200 w-40">사업시행자</th>
+                <th className="px-4 py-3.5 text-center font-bold border-r border-gray-200 w-28">재결일</th>
+                <th className="px-4 py-3.5 text-center font-bold border-r border-gray-200 w-20">담당자</th>
+                <th className="px-4 py-3.5 text-center font-bold border-r border-gray-200 w-32">소유자</th>
+                <th className="px-4 py-3.5 text-center font-bold border-r border-gray-200 w-32">관계인</th>
+                <th className="px-6 py-3.5 text-center font-bold border-r border-gray-200 w-32">송달결과보기</th>
               </tr>
             </thead>
             <tbody>
@@ -196,6 +197,14 @@ export function DeliveryManagement() {
                   <td className="px-4 py-3 text-center text-gray-600 border-r border-gray-200">{row.manager}</td>
                   <td className="px-4 py-3 text-gray-700 border-r border-gray-200">{row.owner}</td>
                   <td className="px-4 py-3 text-gray-700">{row.relation}</td>
+                  <td className="px-4 py-3 border-r border-gray-200 text-center">
+                    <Button
+                     onClick={() => navigate(`/delivery/${row.id}/result`)}
+                     ant="outline"
+                     className="h-8 bg-slate-700 hover:bg-slate-800 text-white font-bold text-xs border-none shadow-sm px-4"
+                     >
+                    송달결과보기  </Button>
+                    </td>
                 </tr>
               ))}
               {currentCases.length === 0 && (
